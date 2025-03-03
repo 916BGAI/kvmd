@@ -11,7 +11,7 @@ LIBGPIOD_VERSION ?= 1.6.3
 
 USTREAMER_MIN_VERSION ?= $(shell grep -o 'ustreamer>=[^"]\+' PKGBUILD | sed 's/ustreamer>=//g')
 
-DEFAULT_PLATFORM ?= v2-hdmi-rpi4
+DEFAULT_PLATFORM ?= v2-hdmiusb-rpi4
 
 DOCKER ?= docker
 
@@ -253,7 +253,7 @@ release:
 
 
 bump:
-	bumpversion $(if $(V),$(V),minor)
+	bumpversion $(if $(V),$(V),minor) --allow-dirty
 
 
 push:

@@ -210,8 +210,8 @@ class _GadgetConfig:
         _write(join(func_path, "lun.0/ro"), int(not rw))
         _write(join(func_path, "lun.0/removable"), int(removable))
         _write(join(func_path, "lun.0/nofua"), int(not fua))
-        _write(join(func_path, "lun.0/inquiry_string_cdrom"), inquiry_string_cdrom)
-        _write(join(func_path, "lun.0/inquiry_string"), inquiry_string_flash)
+        # _write(join(func_path, "lun.0/inquiry_string_cdrom"), inquiry_string_cdrom)
+        # _write(join(func_path, "lun.0/inquiry_string"), inquiry_string_flash)
         if user != "root":
             _chown(join(func_path, "lun.0/cdrom"), user)
             _chown(join(func_path, "lun.0/ro"), user)
@@ -368,7 +368,7 @@ def _cmd_stop(config: Section) -> None:
     for func in os.listdir(profile_path):
         if re.search(r"\.usb\d+$", func):
             _unlink(join(profile_path, func))
-    _rmdir(join(profile_path, "strings/0x409"))
+    # _rmdir(join(profile_path, "strings/0x409"))
     _rmdir(profile_path)
 
     funcs_path = join(gadget_path, "functions")

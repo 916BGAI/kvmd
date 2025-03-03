@@ -81,14 +81,18 @@ RUN pacman --noconfirm --ask=4 -Syy \
 	&& rm -rf /var/cache/pacman/pkg/*
 
 COPY testenv/requirements.txt requirements.txt
-RUN pip install --break-system-packages -r requirements.txt
+
+RUN pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple && \
+pip install --break-system-packages -r requirements.txt && \
+pip cache purge
 
 # https://stackoverflow.com/questions/57534295
 WORKDIR /root
 RUN npm install htmlhint -g \
 	&& npm install pug \
 	&& npm install pug-cli -g \
-	&& npm install @babel/eslint-parser -g
+	&& npm install @babel/eslint-parser -g \
+	&& npm cache clean -f
 WORKDIR /
 
 ARG USTREAMER_MIN_VERSION
