@@ -12,7 +12,7 @@ AmbientCapabilities=CAP_NET_RAW
 
 ExecStart=/usr/bin/kvmd --run
 TimeoutStopSec=10
-KillMode=mixed
+KillMode=process
 
 [Install]
 WantedBy=multi-user.target
