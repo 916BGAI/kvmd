@@ -11,9 +11,11 @@ append vars
 block start
 	table
 		tr
-			td.logo
+			td.logo(style="display: flex; align-items: center;")
 				a(href="https://pikvm.org" target="_blank")
-					img.svg-gray(src=`${svg_dir}/logo.svg` alt="PiKVM" height="40")
+					img.svg-gray(src=`${svg_dir}/logo.svg` alt="PiKVM" height="40" style="margin-right: 10px; vertical-align: middle;")
+				a(href="https://sipeed.com" target="_blank")
+					img(src=`${png_dir}/sipeed_logo.png` alt="Sipeed" height="40" style="vertical-align: middle;")
 			td
 				table
 					tr #[td.title(colspan="2") The Open Source KVM over IP]

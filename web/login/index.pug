@@ -25,7 +25,9 @@ block body
 			#login
 				table
 					tr
-						td #[img.svg-gray#login-logo(src=`${svg_dir}/logo.svg` alt="&pi;-kvm")]
+						td(colspan="2" style="display: flex; align-items: center;")
+						  img.svg-gray#login-logo(src=`${svg_dir}/logo.svg`, alt="&pi;-kvm", height="30", style="margin-right: 10px;")
+						  img(src=`${png_dir}/sipeed_logo.png`, alt="sipeed", height="30")
 						td
 					tr
 						td(colspan=2) #[hr]
