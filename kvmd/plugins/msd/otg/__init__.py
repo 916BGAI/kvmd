@@ -36,7 +36,7 @@ from ....yamlconf import Option
 
 from ....validators.basic import valid_bool
 from ....validators.basic import valid_number
-from ....validators.os import valid_command
+from ....validators.os import valid_command, valid_abs_path
 from ....validators.kvm import valid_msd_image_name
 
 from .... import aiotools
@@ -123,18 +123,21 @@ class Plugin(BaseMsd):  # pylint: disable=too-many-instance-attributes
 
         initial: dict,
 
+        msd_path: str,
+
         gadget: str,  # XXX: Not from options, see /kvmd/apps/kvmd/__init__.py for details
     ) -> None:
 
         self.__read_chunk_size = read_chunk_size
         self.__write_chunk_size = write_chunk_size
         self.__sync_chunk_size = sync_chunk_size
+        self.__msd_path = msd_path
 
         self.__initial_image: str = initial["image"]
         self.__initial_cdrom: bool = initial["cdrom"]
 
         self.__drive = Drive(gadget, instance=0, lun=0)
-        self.__storage = Storage(fstab.find_msd().root_path, remount_cmd)
+        self.__storage = Storage(fstab.find_msd(msd_path).root_path, remount_cmd)
 
         self.__reader: (MsdFileReader | None) = None
         self.__writer: (MsdFileWriter | None) = None
@@ -163,6 +166,8 @@ class Plugin(BaseMsd):  # pylint: disable=too-many-instance-attributes
                 "image": Option("",    type=valid_msd_image_name, if_empty=""),
                 "cdrom": Option(False, type=valid_bool),
             },
+
+            "msd_path": Option("/var/lib/kvmd/msd",    type=valid_abs_path),
         }
 
     # =====

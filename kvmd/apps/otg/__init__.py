@@ -49,11 +49,13 @@ def _mkdir(path: str) -> None:
     get_logger().info("MKDIR --- %s", path)
     os.mkdir(path)
 
-
-def _chown(path: str, user: str) -> None:
-    get_logger().info("CHOWN --- %s - %s", user, path)
+def _chown(path: str, user: str, optional: bool=False) -> None:
+    logger = get_logger()
+    if optional and not os.access(path, os.F_OK):
+        logger.info("CHOWN --- %s - [SKIPPED] %s", user, path)
+        return
+    logger.info("CHOWN --- %s - %s", user, path)
     shutil.chown(path, user)
-
 
 def _symlink(src: str, dest: str) -> None:
     get_logger().info("SYMLINK - %s --> %s", dest, src)
@@ -216,7 +218,7 @@ class _GadgetConfig:
             _chown(join(func_path, "lun.0/cdrom"), user)
             _chown(join(func_path, "lun.0/ro"), user)
             _chown(join(func_path, "lun.0/file"), user)
-            _chown(join(func_path, "lun.0/forced_eject"), user)
+            _chown(join(func_path, "lun.0/forced_eject"), user, optional=True)
         if start:
             self.__start_function(func, eps)
         desc = ("Mass Storage Drive" if self.__msd_instance == 0 else f"Extra Drive #{self.__msd_instance}")
