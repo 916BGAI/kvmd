@@ -27,7 +27,9 @@ from ...errors import IsBusyError
 
 from .. import BasePlugin
 from .. import get_plugin_class
+from ...logging import get_logger
 
+import asyncio
 
 # =====
 class AtxError(Exception):
@@ -66,29 +68,39 @@ class BaseAtx(BasePlugin):
 
     # =====
 
+    async def _run_script(self, action: str, wait: bool) -> None:
+        cmd = ["/etc/kvmd/atx/atx.sh", action]
+        process = await asyncio.create_subprocess_exec(*cmd)
+        if wait:
+            await process.wait()
+            if process.returncode != 0:
+                raise AtxOperationError(f"Script execution failed for action: {action}")
+
     async def power_on(self, wait: bool) -> None:
-        raise NotImplementedError
+        await self.click_power(wait)
 
     async def power_off(self, wait: bool) -> None:
-        raise NotImplementedError
+        await self.click_power(wait)
 
     async def power_off_hard(self, wait: bool) -> None:
-        raise NotImplementedError
+        await self.click_power_long(wait)
 
     async def power_reset_hard(self, wait: bool) -> None:
-        raise NotImplementedError
+        await self.click_reset(wait)
 
     # =====
 
     async def click_power(self, wait: bool) -> None:
-        raise NotImplementedError
+         await self._run_script("short", wait)
+         get_logger(0).info("Click power short")
 
     async def click_power_long(self, wait: bool) -> None:
-        raise NotImplementedError
+        await self._run_script("long", wait)
+        get_logger(0).info("Click power long")
 
     async def click_reset(self, wait: bool) -> None:
-        raise NotImplementedError
-
+        await self._run_script("reset", wait)
+        get_logger(0).info("Click reset")
 
 # =====
 def get_atx_class(name: str) -> type[BaseAtx]:

@@ -55,7 +55,7 @@ export function Atx(__recorder) {
 			}
 			if (state.enabled !== undefined) {
 				__state.enabled = state.enabled;
-				tools.feature.setEnabled($("atx-dropdown"), (__state.enabled && !__has_switch));
+				tools.feature.setEnabled($("atx-dropdown"), __state.enabled);
 			}
 			if (__state.enabled !== undefined) {
 				if (state.busy !== undefined) {

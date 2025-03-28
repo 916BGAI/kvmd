@@ -41,7 +41,7 @@ class Plugin(BaseAtx):
 
     async def get_state(self) -> dict:
         return {
-            "enabled": False,
+            "enabled": True,
             "busy": False,
             "leds": {
                 "power": False,
@@ -59,8 +59,8 @@ class Plugin(BaseAtx):
 
     # =====
 
-    async def __stub(self, wait: bool) -> None:
-        raise AtxDisabledError()
+    # async def __stub(self, wait: bool) -> None:
+    #     raise AtxDisabledError()
 
-    power_on = power_off = power_off_hard = power_reset_hard = __stub
-    click_power = click_power_long = click_reset = __stub
+    # power_on = power_off = power_off_hard = power_reset_hard = __stub
+    # click_power = click_power_long = click_reset = __stub
