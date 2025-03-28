@@ -192,7 +192,11 @@ export function Info() {
 		$("about-version").innerHTML = `
 			Base: ${__commented(tools.escape(p.base))}
 			<hr>
-			Platform: ${__commented(tools.escape(p.model + "-" + p.video + "-" + p.board))}
+			Platform: ${__commented(tools.escape("NanoKVM Pro"))}
+			<hr>
+			PiKVM version: ${__commented(tools.escape("v0.0.0"))}
+			<hr>
+			NanoKVM version: ${__commented(tools.escape("v0.0.0"))}
 			<hr>
 			Serial: ${__commented(tools.escape(p.serial))}
 			<hr>

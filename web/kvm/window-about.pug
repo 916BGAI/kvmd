@@ -18,17 +18,19 @@ mixin about_tab(name, title, checked=false)
 	#about
 		table
 			tr
-				td.logo
+				td.logo(style="display: flex; align-items: middle; width: 170px;")
 					a(href="https://pikvm.org" target="_blank")
-						img.svg-gray(src=`${svg_dir}/logo.svg` alt="PiKVM" height="40")
+						img.svg-gray(src=`${svg_dir}/logo.svg` alt="PiKVM" height="40" style="margin-right: 10px; vertical-align: middle;")
+					a(href="https://sipeed.com" target="_blank")
+						img(src="../share/png/sipeed_logo.png" alt="Sipeed" height="40" style="vertical-align: middle;")
 				td
 					table
 						tr
 							td.title(colspan="2")
 								| The Open Source KVM over IP
-						tr
-							td.copyright(colspan="2")
-								| Copyright &copy; 2018-2024 #[a(target="_blank" href="mailto:mdevaev@gmail.com") Maxim Devaev]
+						tr(style="white-space: nowrap;")
+							td.copyright(style="padding-right: 20px;") Copyright &copy; 2018-2024 #[a(target="_blank" href="mailto:mdevaev@gmail.com") Maxim Devaev]
+							td.copyright Copyright &copy; 2025 #[a(target="_blank" href="mailto:support@sipeed.com") Sipeed]
 		br
 		.tabs-box
 			+about_tab("meta", "Meta", true)
